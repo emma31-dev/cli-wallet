@@ -1,73 +1,70 @@
-use std::{collections::HashMap, io};
+mod structures;
+use crate::structures::{ Wallet, Balances, BtcAccount, EthAccount, SolAccount, NearAccount, UsdtAccount };
 
 fn main() {
     println!("Hello, world!");
     wallet();
 }
 
-struct Balance {
-    btc: f32,
-    eth: f32,
-    sol: f32,
-    near: f32,
-    usdt: f32,
+impl BtcAccount {
+    fn new(amount: f32) -> Self {
+        Self { amount: amount }
+    }
 }
 
-struct Wallet {
-    owner: String,
-    balances: HashMap<Crypto, f32>
+impl EthAccount {
+    fn new(amount: f32) -> Self {
+        Self { amount: amount }
+    }
 }
 
-enum Crypto {
-    Btc,
-    Eth,
-    Sol,
-    Near,
-    Usdt,
+impl SolAccount {
+    fn new(amount: f32) -> Self {
+        Self { amount: amount }
+    }
+}
+
+impl NearAccount {
+    fn new(amount: f32) -> Self {
+        Self { amount: amount }
+    }
+}
+
+impl UsdtAccount {
+    fn new(amount: f32) -> Self {
+        Self { amount: amount }
+    }
+}
+
+impl Balances {
+    pub fn new() -> Self {
+        Self {
+            btc: BtcAccount::new(0.0),
+            eth: EthAccount::new(0.0),
+            sol: SolAccount::new(0.0),
+            near: NearAccount::new(0.0),
+            usdt: UsdtAccount::new(0.0)
+        }
+    }
 }
 
 impl Wallet {
-    fn print_balance(self) {
-        println!(
-            "You have {}BTC, {}ETH, {}SOL, {}NEAR, {}USDT",
-            self.balances.btc, self.balances.eth, self.balances.sol, self.balances.near, self.balances.usdt
-        );
+    pub fn new(owner: String, balances: Balances) -> Self {
+        Self {
+            owner,
+            balances
+        }
     }
     
-    fn transfer(mut self, amount: f32, mut receiver: User, crypto: Crypto) {
-        self.btc = self.btc - amount;
-        let mut sender_balance = receiver.get(crypto)
+    fn print_balance(&self) {
+        let btc_balance = self.balances.btc.amount; 
+        
+        println!("You have {}BTC", btc_balance);
     }
 }
 
 fn wallet() {
-    let john = Wallet;
+    let user1 = Wallet::new(String::from("John"), Balances::new());
     
-    let paul = User {
-        btc: 8.9,
-        eth: 76.1,
-        sol: 211.1,
-        near: 401.5,
-        usdt: 1000.5,
-    };
-
-    let mut input_command = String::new();
-    io::stdin()
-        .read_line(&mut input_command)
-        .expect("Enter command to continue");
-
-    let command = input_command.as_str();
-
-    if command == "/balance" {
-        john.print_balance()
-    } else if command == "/transfer" {
-        let mut crypto = String::new();
-        io::stdin()
-            .read_line(&mut crypto)
-            .expect("Invalid crypto name");
-        
-        john.transfer(1.1, paul, crypto);
-    } else {
-        println!("Invalid command")
-    }
+    user1.print_balance();
 }
