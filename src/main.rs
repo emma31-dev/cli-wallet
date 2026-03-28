@@ -2,7 +2,6 @@ mod structures;
 use crate::structures::{ Wallet, Balances, BtcAccount, EthAccount, SolAccount, NearAccount, UsdtAccount };
 
 fn main() {
-    println!("Hello, world!");
     wallet();
 }
 
@@ -49,22 +48,31 @@ impl Balances {
 }
 
 impl Wallet {
-    pub fn new(owner: String, balances: Balances) -> Self {
+    pub fn new(owner: &str) -> Self {
         Self {
-            owner,
-            balances
+            owner: String::from(owner),
+            balances: Balances::new()
         }
     }
     
-    fn print_balance(&self) {
-        let btc_balance = self.balances.btc.amount; 
+    fn print_balance(self) {
+        let user_name = self.owner;
+        let balances = self.balances; 
         
-        println!("You have {}BTC", btc_balance);
+        println!("Welcome {}", user_name);
+        println!(
+            "You have {}BTC, {}ETH, {}SOL, {}NEAR AND {}USDT", 
+            balances.btc.amount, 
+            balances.eth.amount, 
+            balances.sol.amount, 
+            balances.near.amount, 
+            balances.usdt.amount
+        );
     }
 }
 
 fn wallet() {
-    let user1 = Wallet::new(String::from("John"), Balances::new());
+    let user1 = Wallet::new("John");
     
     user1.print_balance();
 }

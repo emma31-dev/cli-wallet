@@ -1,5 +1,3 @@
-
-
 pub struct BtcAccount {
     pub amount: f32,
 }
@@ -33,6 +31,7 @@ pub struct Wallet {
     pub balances: Balances,
 }
     
+#[allow(dead_code)]
 pub enum Crypto {
     Btc(BtcAccount),
     Eth(EthAccount),
