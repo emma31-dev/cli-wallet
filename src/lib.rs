@@ -33,31 +33,31 @@ pub struct Wallet {
 
 impl BtcAccount {
     fn new(amount: f32) -> Self {
-        Self { amount: amount }
+        Self { amount }
     }
 }
 
 impl EthAccount {
     fn new(amount: f32) -> Self {
-        Self { amount: amount }
+        Self { amount }
     }
 }
 
 impl SolAccount {
     fn new(amount: f32) -> Self {
-        Self { amount: amount }
+        Self { amount }
     }
 }
 
 impl NearAccount {
     fn new(amount: f32) -> Self {
-        Self { amount: amount }
+        Self { amount }
     }
 }
 
 impl UsdtAccount {
     fn new(amount: f32) -> Self {
-        Self { amount: amount }
+        Self { amount }
     }
 }
 
