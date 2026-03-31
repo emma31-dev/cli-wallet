@@ -1,43 +1,34 @@
-pub struct BtcAccount {
-    pub amount: f32,
+struct BtcAccount {
+    amount: f32,
 }
     
-pub struct EthAccount {
-    pub amount: f32,
+struct EthAccount {
+    amount: f32,
 }
     
-pub struct SolAccount {
-    pub amount: f32,
+struct SolAccount {
+    amount: f32,
 }
     
-pub struct NearAccount {
-    pub amount: f32,
+struct NearAccount {
+    amount: f32,
 }
     
-pub struct UsdtAccount {
-    pub amount: f32,
+struct UsdtAccount {
+    amount: f32,
 }
     
-pub struct Balances {
-    pub btc: BtcAccount,
-    pub eth: EthAccount,
-    pub sol: SolAccount,
-    pub near: NearAccount,
-    pub usdt: UsdtAccount,
+struct Balances {
+    btc: BtcAccount,
+    eth: EthAccount,
+    sol: SolAccount,
+    near: NearAccount,
+    usdt: UsdtAccount,
 }
     
 pub struct Wallet {
-    pub owner: String,
-    pub balances: Balances,
-}
-    
-#[allow(dead_code)]
-pub enum Crypto {
-    Btc(BtcAccount),
-    Eth(EthAccount),
-    Sol(SolAccount),
-    Near(NearAccount),
-    Usdt(UsdtAccount),
+    owner: String,
+    balances: Balances,
 }
 
 impl BtcAccount {
@@ -71,7 +62,7 @@ impl UsdtAccount {
 }
 
 impl Balances {
-    pub fn new() -> Self {
+    fn new() -> Self {
         Self {
             btc: BtcAccount::new(0.0),
             eth: EthAccount::new(0.0),
@@ -85,7 +76,7 @@ impl Balances {
 impl Wallet {
     pub fn new(owner: &str) -> Self {
         Self {
-            owner: String::from(owner),
+            owner: String::from(owner).to_lowercase(),
             balances: Balances::new()
         }
     }
@@ -117,7 +108,36 @@ impl Wallet {
         } else if crypto == "usdt" {
             self.balances.usdt.amount += amount;
         } else {
-            panic!("Adding money failed. Invalid command")
+            panic!("Adding money failed. Invalid command");
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    
+    #[test]
+    fn new_crypto() {
+        let btc_wallet = BtcAccount::new(1.1);
+        let eth_wallet = EthAccount::new(3.7);
+        let sol_wallet = SolAccount::new(4.34);
+        let near_wallet = NearAccount::new(2.5);
+        
+        assert_eq!(btc_wallet.amount, 1.1);
+        assert_eq!(eth_wallet.amount, 3.7);
+        assert_eq!(sol_wallet.amount, 4.34);
+        assert_eq!(near_wallet.amount, 2.5);
+    }
+    
+    #[test]
+    fn wallet_creation() {
+        let user1 = Wallet::new("JOHN");
+        let user2 = Wallet::new("John");
+        let user3 = Wallet::new("jOhn");
+        
+        assert_eq!(user1.owner, "john".to_string());
+        assert_eq!(user2.owner, "john".to_string());
+        assert_eq!(user3.owner, "john".to_string());
     }
 }
