@@ -3,10 +3,10 @@
 > *Note:* This is just a mock flow to simulate wallet data and functionality handling in a crypto wallet
 
 ### File structure
-```text
+```
   |--- src/
-    |--- lib.rs
-    |--- main.rs
+  | |--- lib.rs
+  | |--- main.rs
   |--- tests/
 ```
 

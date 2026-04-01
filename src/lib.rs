@@ -68,7 +68,7 @@ impl Balances {
             eth: EthAccount::new(0.0),
             sol: SolAccount::new(0.0),
             near: NearAccount::new(0.0),
-            usdt: UsdtAccount::new(0.0)
+            usdt: UsdtAccount::new(0.0),
         }
     }
 }
@@ -77,7 +77,7 @@ impl Wallet {
     pub fn new(owner: &str) -> Self {
         Self {
             owner: String::from(owner).to_lowercase(),
-            balances: Balances::new()
+            balances: Balances::new(),
         }
     }
     
@@ -92,7 +92,7 @@ impl Wallet {
             balances.eth.amount, 
             balances.sol.amount, 
             balances.near.amount, 
-            balances.usdt.amount
+            balances.usdt.amount,
         );
     }
     
